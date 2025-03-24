@@ -1,59 +1,70 @@
 [
     {
-        "label": "apiConnection",
-        "importPath": "services.apiConnection",
-        "description": "services.apiConnection",
-        "isExtraImport": true,
-        "detail": "services.apiConnection",
-        "documentation": {}
-    },
-    {
-        "label": "apiConnection",
-        "importPath": "services.apiConnection",
-        "description": "services.apiConnection",
-        "isExtraImport": true,
-        "detail": "services.apiConnection",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
         "label": "json",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "json",
         "description": "json",
         "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "apiConnection",
+        "importPath": "services.apiConnection",
+        "description": "services.apiConnection",
+        "isExtraImport": true,
+        "detail": "services.apiConnection",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "getBronzeData",
+        "importPath": "functions.getBronzeData",
+        "description": "functions.getBronzeData",
+        "isExtraImport": true,
+        "detail": "functions.getBronzeData",
+        "documentation": {}
+    },
+    {
+        "label": "pyarrow",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyarrow",
+        "description": "pyarrow",
+        "detail": "pyarrow",
+        "documentation": {}
+    },
+    {
+        "label": "pyarrow.parquet",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyarrow.parquet",
+        "description": "pyarrow.parquet",
+        "detail": "pyarrow.parquet",
         "documentation": {}
     },
     {
@@ -91,12 +102,38 @@
         "documentation": {}
     },
     {
+        "label": "loadSilverData",
+        "importPath": "functions.loadSilverData",
+        "description": "functions.loadSilverData",
+        "isExtraImport": true,
+        "detail": "functions.loadSilverData",
+        "documentation": {}
+    },
+    {
+        "label": "getBronzeData",
+        "kind": 2,
+        "importPath": "functions.getBronzeData",
+        "description": "functions.getBronzeData",
+        "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    if isinstance(data, list):\n        df = pd.DataFrame(data)\n    elif isinstance(data, dict):\n        df = pd.DataFrame([data])\n    else:\n        raise ValueError(\"Estrutura JSON não suportada\")\n    return df",
+        "detail": "functions.getBronzeData",
+        "documentation": {}
+    },
+    {
         "label": "loadBronzeData",
         "kind": 2,
         "importPath": "functions.loadBronzeData",
         "description": "functions.loadBronzeData",
         "peekOfCode": "def loadBronzeData(data):\n    for symbol in data[\"symbols\"]:\n        params = {\n            \"api_token\": data[\"token\"],\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\"\n        }\n        response = apiConnection(data[\"url\"], params)",
         "detail": "functions.loadBronzeData",
+        "documentation": {}
+    },
+    {
+        "label": "loadSilverData",
+        "kind": 2,
+        "importPath": "functions.loadSilverData",
+        "description": "functions.loadSilverData",
+        "peekOfCode": "def loadSilverData(data):\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        table = pa.Table.from_pandas(bronzeData)\n        pq.write_table(table, f'data/silver/{symbol}.parquet')",
+        "detail": "functions.loadSilverData",
         "documentation": {}
     },
     {
@@ -113,7 +150,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')",
         "detail": "index",
         "documentation": {}
     },
@@ -122,7 +159,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)",
+        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')\n    data_expanded = pd.json_normalize(df['data'].explode())",
         "detail": "index",
         "documentation": {}
     }
