@@ -9,7 +9,8 @@ def loadBronzeData(token, symbols):
             "symbols": symbol,
             "date_from": (datetime.now() - timedelta(days=30)).strftime("%Y-%m-%d"),
             "date_to": datetime.now().strftime("%Y-%m-%d"),
-            "format": "json"
+            "format": "json",
+            "sort": "asc"
         }
         response = apiConnection(params)
         if response:
