@@ -42,6 +42,14 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "getSilverData",
         "importPath": "functions.getSilverData",
         "description": "functions.getSilverData",
@@ -73,6 +81,15 @@
         "description": "functions.getBronzeData",
         "isExtraImport": true,
         "detail": "functions.getBronzeData",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
         "documentation": {}
     },
     {
@@ -134,6 +151,14 @@
         "documentation": {}
     },
     {
+        "label": "renderizarGrafico",
+        "importPath": "functions.renderizarGrafico",
+        "description": "functions.renderizarGrafico",
+        "isExtraImport": true,
+        "detail": "functions.renderizarGrafico",
+        "documentation": {}
+    },
+    {
         "label": "getBronzeData",
         "kind": 2,
         "importPath": "functions.getBronzeData",
@@ -174,7 +199,7 @@
         "kind": 2,
         "importPath": "functions.loadGoldData",
         "description": "functions.loadGoldData",
-        "peekOfCode": "def loadGoldData():\n    df_silver = getSilverData()\n    formatedData = []\n    for index in df_silver.index:\n        json = {\n            \"empresa\": df_silver['enterprise'][index],\n            \"dia\": df_silver['date'][index],\n            \"preco\": round(float((df_silver['low'][index] + df_silver['high'][index]) + df_silver['close'][index] / 3), 2)\n        }\n        formatedData.append(json)",
+        "peekOfCode": "def loadGoldData():\n    df_silver = getSilverData()\n    formatedData = []\n    for index in df_silver.index:\n        json = {\n            \"empresa\": df_silver['enterprise'][index],\n            \"dia\": df_silver['date'][index],\n            \"preco\": round(float((df_silver['low'][index] + df_silver['high'][index] + df_silver['close'][index]) / 3), 2)\n        }\n        formatedData.append(json)",
         "detail": "functions.loadGoldData",
         "documentation": {}
     },
@@ -188,6 +213,15 @@
         "documentation": {}
     },
     {
+        "label": "renderizarGrafico",
+        "kind": 2,
+        "importPath": "functions.renderizarGrafico",
+        "description": "functions.renderizarGrafico",
+        "peekOfCode": "def renderizarGrafico(symbol, dados_filtrados):\n    dias = []\n    precos = []\n    for data in dados_filtrados['dia']:\n        data_obj = datetime.strptime(data, '%Y-%m-%dT%H:%M:%S.%fZ')\n        data_formatada = data_obj.strftime('%d/%m')\n        dias.append(data_formatada)\n    for preco in dados_filtrados['preco']:\n        precos.append(preco)\n    plt.plot(dias, precos, marker='o')",
+        "detail": "functions.renderizarGrafico",
+        "documentation": {}
+    },
+    {
         "label": "apiConnection",
         "kind": 2,
         "importPath": "services.apiConnection",
@@ -197,11 +231,20 @@
         "documentation": {}
     },
     {
+        "label": "main",
+        "kind": 2,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "def main():\n    # loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0\n            print()",
+        "detail": "index",
+        "documentation": {}
+    },
+    {
         "label": "token",
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    # loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    ",
         "detail": "index",
         "documentation": {}
     },
@@ -210,7 +253,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]",
+        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    # loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0",
         "detail": "index",
         "documentation": {}
     }
