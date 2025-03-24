@@ -2,16 +2,16 @@ from services.apiConnection import apiConnection
 from datetime import datetime, timedelta
 import json
 
-def loadBronzeData(data):
-    for symbol in data["symbols"]:
+def loadBronzeData(token, symbols):
+    for symbol in symbols:
         params = {
-            "api_token": data["token"],
+            "api_token": token,
             "symbols": symbol,
             "date_from": (datetime.now() - timedelta(days=30)).strftime("%Y-%m-%d"),
             "date_to": datetime.now().strftime("%Y-%m-%d"),
             "format": "json"
         }
-        response = apiConnection(data["url"], params)
+        response = apiConnection(params)
         if response:
             with open(f"data/bronze/{symbol}.json", "w") as file:
                 json.dump(response, file, indent=3)

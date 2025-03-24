@@ -3,10 +3,10 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-def loadSilverData(data):
+def loadSilverData(symbols):
     bruteData = {}
     
-    for symbol in data["symbols"]:
+    for symbol in symbols:
         bronzeData = getBronzeData(symbol)
         bruteData[symbol] = bronzeData["data"]
     

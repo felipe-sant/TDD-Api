@@ -9,17 +9,14 @@ load_dotenv()
 
 token = os.getenv('API_TOKEN')
 
-data = {
-    "token": token,
-    "url": "https://api.stockdata.org/v1/data/eod",
-    "symbols": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"],
-}
+token = token,
+symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
-# loadBronzeData(data)
-# loadSilverData(data)
-# loadGoldData()
+loadBronzeData(token, symbols)
+loadSilverData(symbols)
+loadGoldData()
 
-for symbol in data["symbols"]:
+for symbol in symbols:
     df = getGoldData()
     print()
     df_filtrada = df[df['empresa'] == symbol]

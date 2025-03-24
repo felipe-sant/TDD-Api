@@ -165,7 +165,7 @@
         "kind": 2,
         "importPath": "functions.loadBronzeData",
         "description": "functions.loadBronzeData",
-        "peekOfCode": "def loadBronzeData(data):\n    for symbol in data[\"symbols\"]:\n        params = {\n            \"api_token\": data[\"token\"],\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\"\n        }\n        response = apiConnection(data[\"url\"], params)",
+        "peekOfCode": "def loadBronzeData(token, symbols):\n    for symbol in symbols:\n        params = {\n            \"api_token\": token,\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\"\n        }\n        response = apiConnection(params)",
         "detail": "functions.loadBronzeData",
         "documentation": {}
     },
@@ -183,7 +183,7 @@
         "kind": 2,
         "importPath": "functions.loadSilverData",
         "description": "functions.loadSilverData",
-        "peekOfCode": "def loadSilverData(data):\n    bruteData = {}\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        bruteData[symbol] = bronzeData[\"data\"]\n    formatedData = []\n    for symbol in bruteData:\n        for data in bruteData[symbol]:\n            json = {\n                \"enterprise\": symbol,",
+        "peekOfCode": "def loadSilverData(symbols):\n    bruteData = {}\n    for symbol in symbols:\n        bronzeData = getBronzeData(symbol)\n        bruteData[symbol] = bronzeData[\"data\"]\n    formatedData = []\n    for symbol in bruteData:\n        for data in bruteData[symbol]:\n            json = {\n                \"enterprise\": symbol,",
         "detail": "functions.loadSilverData",
         "documentation": {}
     },
@@ -192,7 +192,7 @@
         "kind": 2,
         "importPath": "services.apiConnection",
         "description": "services.apiConnection",
-        "peekOfCode": "def apiConnection(url, params):\n    try:\n        response = requests.get(url, params=params)\n        return response.json()\n    except Exception as e:\n        return e",
+        "peekOfCode": "def apiConnection(params):\n    try:\n        response = requests.get(\"https://api.stockdata.org/v1/data/eod\", params=params)\n        return response.json()\n    except Exception as e:\n        return e",
         "detail": "services.apiConnection",
         "documentation": {}
     },
@@ -201,16 +201,25 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\n# loadSilverData(data)\n# loadGoldData()\nfor symbol in data[\"symbols\"]:",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ntoken = token,\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]",
         "detail": "index",
         "documentation": {}
     },
     {
-        "label": "data",
+        "label": "token",
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\n# loadSilverData(data)\n# loadGoldData()\nfor symbol in data[\"symbols\"]:\n    df = getGoldData()",
+        "peekOfCode": "token = token,\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]\n    print(df_filtrada)",
+        "detail": "index",
+        "documentation": {}
+    },
+    {
+        "label": "symbols",
+        "kind": 5,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]\n    print(df_filtrada)",
         "detail": "index",
         "documentation": {}
     }
