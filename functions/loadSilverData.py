@@ -1,5 +1,4 @@
 from functions.getBronzeData import getBronzeData
-import json
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -16,11 +15,13 @@ def loadSilverData(data):
     for symbol in bruteData:
         for data in bruteData[symbol]:
             json = {
-                "Empresa": symbol,
-                "Data": data['date'],
-                "Alta": data['high'],
-                "Baixa": data['low'],
-                "Fechamento": data['close'],
+                "enterprise": symbol,
+                "open": data['open'],
+                "date": data['date'],
+                "high": data['high'],
+                "low": data['low'],
+                "close": data['close'],
+                "volume": data['volume']
             }
             formatedData.append(json)
     

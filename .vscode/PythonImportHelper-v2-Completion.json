@@ -42,11 +42,11 @@
         "documentation": {}
     },
     {
-        "label": "getBronzeData",
-        "importPath": "functions.getBronzeData",
-        "description": "functions.getBronzeData",
+        "label": "getSilverData",
+        "importPath": "functions.getSilverData",
+        "description": "functions.getSilverData",
         "isExtraImport": true,
-        "detail": "functions.getBronzeData",
+        "detail": "functions.getSilverData",
         "documentation": {}
     },
     {
@@ -65,6 +65,14 @@
         "importPath": "pyarrow.parquet",
         "description": "pyarrow.parquet",
         "detail": "pyarrow.parquet",
+        "documentation": {}
+    },
+    {
+        "label": "getBronzeData",
+        "importPath": "functions.getBronzeData",
+        "description": "functions.getBronzeData",
+        "isExtraImport": true,
+        "detail": "functions.getBronzeData",
         "documentation": {}
     },
     {
@@ -110,12 +118,46 @@
         "documentation": {}
     },
     {
+        "label": "loadGoldData",
+        "importPath": "functions.loadGoldData",
+        "description": "functions.loadGoldData",
+        "isExtraImport": true,
+        "detail": "functions.loadGoldData",
+        "documentation": {}
+    },
+    {
+        "label": "getGoldData",
+        "importPath": "functions.getGoldData",
+        "description": "functions.getGoldData",
+        "isExtraImport": true,
+        "detail": "functions.getGoldData",
+        "documentation": {}
+    },
+    {
         "label": "getBronzeData",
         "kind": 2,
         "importPath": "functions.getBronzeData",
         "description": "functions.getBronzeData",
         "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    return data",
         "detail": "functions.getBronzeData",
+        "documentation": {}
+    },
+    {
+        "label": "getGoldData",
+        "kind": 2,
+        "importPath": "functions.getGoldData",
+        "description": "functions.getGoldData",
+        "peekOfCode": "def getGoldData():\n    df = pd.read_parquet(f'data/gold/dados_de_acoes.parquet')\n    return df",
+        "detail": "functions.getGoldData",
+        "documentation": {}
+    },
+    {
+        "label": "getSilverData",
+        "kind": 2,
+        "importPath": "functions.getSilverData",
+        "description": "functions.getSilverData",
+        "peekOfCode": "def getSilverData():\n    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')\n    return df",
+        "detail": "functions.getSilverData",
         "documentation": {}
     },
     {
@@ -128,11 +170,20 @@
         "documentation": {}
     },
     {
+        "label": "loadGoldData",
+        "kind": 2,
+        "importPath": "functions.loadGoldData",
+        "description": "functions.loadGoldData",
+        "peekOfCode": "def loadGoldData():\n    df_silver = getSilverData()\n    formatedData = []\n    for index in df_silver.index:\n        json = {\n            \"empresa\": df_silver['enterprise'][index],\n            \"dia\": df_silver['date'][index],\n            \"preco\": round(float((df_silver['low'][index] + df_silver['high'][index]) / 2), 2)\n        }\n        formatedData.append(json)",
+        "detail": "functions.loadGoldData",
+        "documentation": {}
+    },
+    {
         "label": "loadSilverData",
         "kind": 2,
         "importPath": "functions.loadSilverData",
         "description": "functions.loadSilverData",
-        "peekOfCode": "def loadSilverData(data):\n    bruteData = {}\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        bruteData[symbol] = bronzeData[\"data\"]\n    formatedData = []\n    for symbol in bruteData:\n        for data in bruteData[symbol]:\n            json = {\n                \"Empresa\": symbol,",
+        "peekOfCode": "def loadSilverData(data):\n    bruteData = {}\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        bruteData[symbol] = bronzeData[\"data\"]\n    formatedData = []\n    for symbol in bruteData:\n        for data in bruteData[symbol]:\n            json = {\n                \"enterprise\": symbol,",
         "detail": "functions.loadSilverData",
         "documentation": {}
     },
@@ -150,7 +201,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\n# loadSilverData(data)\n# loadGoldData()\nfor symbol in data[\"symbols\"]:",
         "detail": "index",
         "documentation": {}
     },
@@ -159,7 +210,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')\n    print()",
+        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\n# loadSilverData(data)\n# loadGoldData()\nfor symbol in data[\"symbols\"]:\n    df = getGoldData()",
         "detail": "index",
         "documentation": {}
     }

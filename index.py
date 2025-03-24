@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
 import os
 from functions.loadBronzeData import loadBronzeData
-import pandas as pd
 from functions.loadSilverData import loadSilverData
+from functions.loadGoldData import loadGoldData
+from functions.getGoldData import getGoldData
 
 load_dotenv()
 
@@ -14,11 +15,12 @@ data = {
     "symbols": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"],
 }
 
-loadBronzeData(data)
-loadSilverData(data)
+# loadBronzeData(data)
+# loadSilverData(data)
+# loadGoldData()
 
 for symbol in data["symbols"]:
-    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')
+    df = getGoldData()
     print()
-    df_filtrada = df[df['Empresa'] == symbol]
+    df_filtrada = df[df['empresa'] == symbol]
     print(df_filtrada)
