@@ -12,7 +12,7 @@ def loadGoldData():
         json = {
             "empresa": df_silver['enterprise'][index],
             "dia": df_silver['date'][index],
-            "preco": round(float((df_silver['low'][index] + df_silver['high'][index]) / 2), 2)
+            "preco": round(float((df_silver['low'][index] + df_silver['high'][index]) + df_silver['close'][index] / 3), 2)
         }
         formatedData.append(json)
         

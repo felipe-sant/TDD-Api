@@ -174,7 +174,7 @@
         "kind": 2,
         "importPath": "functions.loadGoldData",
         "description": "functions.loadGoldData",
-        "peekOfCode": "def loadGoldData():\n    df_silver = getSilverData()\n    formatedData = []\n    for index in df_silver.index:\n        json = {\n            \"empresa\": df_silver['enterprise'][index],\n            \"dia\": df_silver['date'][index],\n            \"preco\": round(float((df_silver['low'][index] + df_silver['high'][index]) / 2), 2)\n        }\n        formatedData.append(json)",
+        "peekOfCode": "def loadGoldData():\n    df_silver = getSilverData()\n    formatedData = []\n    for index in df_silver.index:\n        json = {\n            \"empresa\": df_silver['enterprise'][index],\n            \"dia\": df_silver['date'][index],\n            \"preco\": round(float((df_silver['low'][index] + df_silver['high'][index]) + df_silver['close'][index] / 3), 2)\n        }\n        formatedData.append(json)",
         "detail": "functions.loadGoldData",
         "documentation": {}
     },
@@ -201,16 +201,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ntoken = token,\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]",
-        "detail": "index",
-        "documentation": {}
-    },
-    {
-        "label": "token",
-        "kind": 5,
-        "importPath": "index",
-        "description": "index",
-        "peekOfCode": "token = token,\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]\n    print(df_filtrada)",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]",
         "detail": "index",
         "documentation": {}
     },
@@ -219,7 +210,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\nloadBronzeData(token, symbols)\nloadSilverData(symbols)\nloadGoldData()\nfor symbol in symbols:\n    df = getGoldData()\n    print()\n    df_filtrada = df[df['empresa'] == symbol]\n    print(df_filtrada)",
+        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]",
         "detail": "index",
         "documentation": {}
     }
