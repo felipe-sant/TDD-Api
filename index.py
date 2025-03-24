@@ -7,7 +7,8 @@ from functions.getGoldData import getGoldData
 from functions.renderizarGrafico import renderizarGrafico
 
 load_dotenv()
-token = os.getenv('API_TOKEN')
+# token = os.getenv('API_TOKEN')
+token = "FY28JBKUANuzm8VTBmLLuNUmtXE7hYN3hK01F5Y6"
 symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
 def main():

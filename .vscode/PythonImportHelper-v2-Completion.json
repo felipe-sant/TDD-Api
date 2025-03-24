@@ -240,15 +240,6 @@
         "documentation": {}
     },
     {
-        "label": "token",
-        "kind": 5,
-        "importPath": "index",
-        "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    # loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    ",
-        "detail": "index",
-        "documentation": {}
-    },
-    {
         "label": "symbols",
         "kind": 5,
         "importPath": "index",
