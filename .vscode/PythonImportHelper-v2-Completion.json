@@ -1,5 +1,62 @@
 [
     {
+        "label": "apiConnection",
+        "importPath": "services.apiConnection",
+        "description": "services.apiConnection",
+        "isExtraImport": true,
+        "detail": "services.apiConnection",
+        "documentation": {}
+    },
+    {
+        "label": "apiConnection",
+        "importPath": "services.apiConnection",
+        "description": "services.apiConnection",
+        "isExtraImport": true,
+        "detail": "services.apiConnection",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -26,20 +83,20 @@
         "documentation": {}
     },
     {
-        "label": "apiConnection",
-        "importPath": "services.apiConnection",
-        "description": "services.apiConnection",
+        "label": "loadBronzeData",
+        "importPath": "functions.loadBronzeData",
+        "description": "functions.loadBronzeData",
         "isExtraImport": true,
-        "detail": "services.apiConnection",
+        "detail": "functions.loadBronzeData",
         "documentation": {}
     },
     {
-        "label": "json",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
+        "label": "loadBronzeData",
+        "kind": 2,
+        "importPath": "functions.loadBronzeData",
+        "description": "functions.loadBronzeData",
+        "peekOfCode": "def loadBronzeData(data):\n    for symbol in data[\"symbols\"]:\n        params = {\n            \"api_token\": data[\"token\"],\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\"\n        }\n        response = apiConnection(data[\"url\"], params)",
+        "detail": "functions.loadBronzeData",
         "documentation": {}
     },
     {
@@ -56,34 +113,16 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\nurl = \"https://api.stockdata.org/v1/data/eod\"\nparams = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)",
         "detail": "index",
         "documentation": {}
     },
     {
-        "label": "url",
+        "label": "data",
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "url = \"https://api.stockdata.org/v1/data/eod\"\nparams = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
-        "detail": "index",
-        "documentation": {}
-    },
-    {
-        "label": "params",
-        "kind": 5,
-        "importPath": "index",
-        "description": "index",
-        "peekOfCode": "params = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
-        "detail": "index",
-        "documentation": {}
-    },
-    {
-        "label": "response",
-        "kind": 5,
-        "importPath": "index",
-        "description": "index",
-        "peekOfCode": "response = json.dumps(apiConnection(url, params))\nprint(response)",
+        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)",
         "detail": "index",
         "documentation": {}
     }
