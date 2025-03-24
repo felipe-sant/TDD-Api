@@ -1,0 +1,90 @@
+[
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "apiConnection",
+        "importPath": "services.apiConnection",
+        "description": "services.apiConnection",
+        "isExtraImport": true,
+        "detail": "services.apiConnection",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "apiConnection",
+        "kind": 2,
+        "importPath": "services.apiConnection",
+        "description": "services.apiConnection",
+        "peekOfCode": "def apiConnection(url, params):\n    try:\n        response = requests.get(url, params=params)\n        return response.json()\n    except Exception as e:\n        return e",
+        "detail": "services.apiConnection",
+        "documentation": {}
+    },
+    {
+        "label": "token",
+        "kind": 5,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\nurl = \"https://api.stockdata.org/v1/data/eod\"\nparams = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
+        "detail": "index",
+        "documentation": {}
+    },
+    {
+        "label": "url",
+        "kind": 5,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "url = \"https://api.stockdata.org/v1/data/eod\"\nparams = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
+        "detail": "index",
+        "documentation": {}
+    },
+    {
+        "label": "params",
+        "kind": 5,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "params = {\n    \"api_token\": token,\n    \"symbols\": \"AAPL\",\n}\nresponse = json.dumps(apiConnection(url, params))\nprint(response)",
+        "detail": "index",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 5,
+        "importPath": "index",
+        "description": "index",
+        "peekOfCode": "response = json.dumps(apiConnection(url, params))\nprint(response)",
+        "detail": "index",
+        "documentation": {}
+    }
+]
