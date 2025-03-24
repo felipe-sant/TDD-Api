@@ -12,7 +12,7 @@ token = "FY28JBKUANuzm8VTBmLLuNUmtXE7hYN3hK01F5Y6"
 symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
 def main():
-    # loadBronzeData(token, symbols)
+    loadBronzeData(token, symbols)
     loadSilverData(symbols)
     loadGoldData()
     
