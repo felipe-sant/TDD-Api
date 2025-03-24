@@ -14,12 +14,11 @@ data = {
     "symbols": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"],
 }
 
-loadBronzeData(data)
+# loadBronzeData(data)
 loadSilverData(data)
 
 for symbol in data["symbols"]:
     df = pd.read_parquet('data/silver/AAPL.parquet')
-    data_expanded = pd.json_normalize(df['data'].explode())
     print()
     print(symbol)
-    print(data_expanded)
+    print(df)

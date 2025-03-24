@@ -114,7 +114,7 @@
         "kind": 2,
         "importPath": "functions.getBronzeData",
         "description": "functions.getBronzeData",
-        "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    if isinstance(data, list):\n        df = pd.DataFrame(data)\n    elif isinstance(data, dict):\n        df = pd.DataFrame([data])\n    else:\n        raise ValueError(\"Estrutura JSON não suportada\")\n    return df",
+        "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    df = pd.DataFrame(data['data'])\n    df['date'] = pd.to_datetime(df['date'])\n    df_daily = df.resample('D', on='date').mean()[['low', 'high']]\n    df_daily['low'] = df_daily['low'].fillna(0)\n    df_daily['high'] = df_daily['high'].fillna(0)\n    return df_daily",
         "detail": "functions.getBronzeData",
         "documentation": {}
     },
@@ -150,7 +150,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')",
         "detail": "index",
         "documentation": {}
     },
@@ -159,7 +159,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')\n    data_expanded = pd.json_normalize(df['data'].explode())",
+        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')\n    print()",
         "detail": "index",
         "documentation": {}
     }

@@ -5,11 +5,12 @@ def getBronzeData(symbol):
     with open('data/bronze/' + symbol + '.json') as f:
         data = json.load(f)
 
-    if isinstance(data, list):
-        df = pd.DataFrame(data)
-    elif isinstance(data, dict):
-        df = pd.DataFrame([data])
-    else:
-        raise ValueError("Estrutura JSON não suportada")
+    df = pd.DataFrame(data['data'])
+
+    df['date'] = pd.to_datetime(df['date'])
+
+    df_daily = df.resample('D', on='date').mean()[['low', 'high']]
+    df_daily['low'] = df_daily['low'].fillna(0)
+    df_daily['high'] = df_daily['high'].fillna(0)
     
-    return df
+    return df_daily
