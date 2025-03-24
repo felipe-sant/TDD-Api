@@ -14,11 +14,11 @@ data = {
     "symbols": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"],
 }
 
-# loadBronzeData(data)
+loadBronzeData(data)
 loadSilverData(data)
 
 for symbol in data["symbols"]:
-    df = pd.read_parquet('data/silver/AAPL.parquet')
+    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')
     print()
-    print(symbol)
-    print(df)
+    df_filtrada = df[df['Empresa'] == symbol]
+    print(df_filtrada)

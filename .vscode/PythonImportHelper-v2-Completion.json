@@ -114,7 +114,7 @@
         "kind": 2,
         "importPath": "functions.getBronzeData",
         "description": "functions.getBronzeData",
-        "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    df = pd.DataFrame(data['data'])\n    df['date'] = pd.to_datetime(df['date'])\n    df_daily = df.resample('D', on='date').mean()[['low', 'high']]\n    df_daily['low'] = df_daily['low'].fillna(0)\n    df_daily['high'] = df_daily['high'].fillna(0)\n    return df_daily",
+        "peekOfCode": "def getBronzeData(symbol):\n    with open('data/bronze/' + symbol + '.json') as f:\n        data = json.load(f)\n    return data",
         "detail": "functions.getBronzeData",
         "documentation": {}
     },
@@ -132,7 +132,7 @@
         "kind": 2,
         "importPath": "functions.loadSilverData",
         "description": "functions.loadSilverData",
-        "peekOfCode": "def loadSilverData(data):\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        table = pa.Table.from_pandas(bronzeData)\n        pq.write_table(table, f'data/silver/{symbol}.parquet')",
+        "peekOfCode": "def loadSilverData(data):\n    bruteData = {}\n    for symbol in data[\"symbols\"]:\n        bronzeData = getBronzeData(symbol)\n        bruteData[symbol] = bronzeData[\"data\"]\n    formatedData = []\n    for symbol in bruteData:\n        for data in bruteData[symbol]:\n            json = {\n                \"Empresa\": symbol,",
         "detail": "functions.loadSilverData",
         "documentation": {}
     },
@@ -150,7 +150,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')",
+        "peekOfCode": "token = os.getenv('API_TOKEN')\ndata = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')",
         "detail": "index",
         "documentation": {}
     },
@@ -159,7 +159,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\n# loadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet('data/silver/AAPL.parquet')\n    print()",
+        "peekOfCode": "data = {\n    \"token\": token,\n    \"url\": \"https://api.stockdata.org/v1/data/eod\",\n    \"symbols\": [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"],\n}\nloadBronzeData(data)\nloadSilverData(data)\nfor symbol in data[\"symbols\"]:\n    df = pd.read_parquet(f'data/silver/dados_de_acoes.parquet')\n    print()",
         "detail": "index",
         "documentation": {}
     }
