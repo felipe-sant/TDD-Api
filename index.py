@@ -12,7 +12,7 @@ token = "uaLZdcM7SjyWJcrkSV09jS4CKzvm7VThCfznDaYN"
 symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
 def main():
-    loadBronzeData(token, symbols)
+    # loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado
     loadSilverData(symbols)
     loadGoldData()
     
@@ -27,20 +27,27 @@ def main():
             for symbol in symbols:
                 print(f"{x} | Mostrar grafico - {symbol}")
                 x+=1
-            print("- | Digite para sair")
+            print("- | Para ver todos dados em tabela")
+            print("= | Para sair")
             print()
             
             opcao = input("digite sua opção: ")
             
             if opcao == "-":
+                x=1
+                for s in symbols:
+                    print(f"\n{s}:")
+                    print(dados[dados['empresa'] == s])
+                    input(f"\n{x}/{len(symbols)}")
+                    x+=1
+                continue
+            elif opcao == "=":
                 execucao = False
-                
-            symbol = symbols[int(opcao)]
-            dados_filtrados = dados[dados['empresa'] == symbol]
-            os.system('cls')
-            renderizarGrafico(symbol, dados_filtrados)
-            
-            input()
+            else:
+                symbol = symbols[int(opcao)]
+                dados_filtrados = dados[dados['empresa'] == symbol]
+                os.system('cls')
+                renderizarGrafico(symbol, dados_filtrados)
         except:
             execucao = False
     

@@ -190,7 +190,7 @@
         "kind": 2,
         "importPath": "functions.loadBronzeData",
         "description": "functions.loadBronzeData",
-        "peekOfCode": "def loadBronzeData(token, symbols):\n    for symbol in symbols:\n        params = {\n            \"api_token\": token,\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\"\n        }\n        response = apiConnection(params)",
+        "peekOfCode": "def loadBronzeData(token, symbols):\n    for symbol in symbols:\n        params = {\n            \"api_token\": token,\n            \"symbols\": symbol,\n            \"date_from\": (datetime.now() - timedelta(days=30)).strftime(\"%Y-%m-%d\"),\n            \"date_to\": datetime.now().strftime(\"%Y-%m-%d\"),\n            \"format\": \"json\",\n            \"sort\": \"asc\"\n        }",
         "detail": "functions.loadBronzeData",
         "documentation": {}
     },
@@ -235,7 +235,7 @@
         "kind": 2,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "def main():\n    loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0\n            print()",
+        "peekOfCode": "def main():\n    # loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0\n            print()",
         "detail": "index",
         "documentation": {}
     },
@@ -244,7 +244,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "token = \"FY28JBKUANuzm8VTBmLLuNUmtXE7hYN3hK01F5Y6\"\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    ",
+        "peekOfCode": "token = \"uaLZdcM7SjyWJcrkSV09jS4CKzvm7VThCfznDaYN\"\nsymbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    # loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    ",
         "detail": "index",
         "documentation": {}
     },
@@ -253,7 +253,7 @@
         "kind": 5,
         "importPath": "index",
         "description": "index",
-        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    loadBronzeData(token, symbols)\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0",
+        "peekOfCode": "symbols = [\"AAPL\", \"MSFT\", \"GOOGL\", \"AMZN\", \"TSLA\", \"NFLX\", \"NVDA\", \"PYPL\", \"SPOT\", \"SHOP\"]\ndef main():\n    # loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado\n    loadSilverData(symbols)\n    loadGoldData()\n    dados = getGoldData()\n    execucao = True\n    while execucao:\n        try:    \n            x=0",
         "detail": "index",
         "documentation": {}
     }
