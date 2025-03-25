@@ -8,7 +8,7 @@ from functions.renderizarGrafico import renderizarGrafico
 
 load_dotenv()
 # token = os.getenv('API_TOKEN')
-token = "FY28JBKUANuzm8VTBmLLuNUmtXE7hYN3hK01F5Y6"
+token = "uaLZdcM7SjyWJcrkSV09jS4CKzvm7VThCfznDaYN"
 symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
 def main():
