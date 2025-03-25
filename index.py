@@ -12,7 +12,7 @@ token = "uaLZdcM7SjyWJcrkSV09jS4CKzvm7VThCfznDaYN"
 symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NFLX", "NVDA", "PYPL", "SPOT", "SHOP"]
 
 def main():
-    # loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado
+    loadBronzeData(token, symbols) # Há um problema na API, caso faça muitas requisições o token é bloqueado
     loadSilverData(symbols)
     loadGoldData()
     
